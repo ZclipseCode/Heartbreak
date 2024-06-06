@@ -13,7 +13,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(ReadyShot());
+            StartCoroutine(ReadyShot(other.transform));
         }
     }
 
@@ -25,20 +25,21 @@ public class RangedEnemy : MonoBehaviour
         }
     }
 
-    void Shoot()
+    void Shoot(Transform target)
     {
         GameObject p = Instantiate(projectile, shootPoint.position, Quaternion.identity);
         Rigidbody pRb = p.GetComponent<Rigidbody>();
+        Vector3 direction = (target.position - pRb.position).normalized;
 
-        pRb.AddForce(shootPoint.forward * projectileForce, ForceMode.Impulse);
+        pRb.AddForce(direction * projectileForce, ForceMode.Impulse);
     }
 
-    IEnumerator ReadyShot()
+    IEnumerator ReadyShot(Transform target)
     {
         yield return new WaitForSeconds(shootDelay);
 
-        Shoot();
+        Shoot(target);
         
-        StartCoroutine(ReadyShot());
+        StartCoroutine(ReadyShot(target));
     }
 }
