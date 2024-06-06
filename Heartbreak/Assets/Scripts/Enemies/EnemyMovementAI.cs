@@ -13,7 +13,7 @@ public class EnemyMovementAI : MonoBehaviour
     Transform player;
     Vector3 walkPoint;
     bool walkPointSet;
-    bool playerInSight;
+    bool playerInSightRange;
     bool canMoveWhileAttacking;
 
     private void Start()
@@ -24,17 +24,17 @@ public class EnemyMovementAI : MonoBehaviour
 
     void Update()
     {
-        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
 
-        if (!playerInSight)
+        if (!playerInSightRange)
         {
             Patrol();
         }
-        else if (playerInSight && canMoveWhileAttacking)
+        else if (playerInSightRange && canMoveWhileAttacking)
         {
             agent.SetDestination(player.position);
         }
-        else if (playerInSight && !canMoveWhileAttacking)
+        else if (playerInSightRange && !canMoveWhileAttacking)
         {
             walkPointSet = false;
             agent.SetDestination(transform.position);
@@ -75,6 +75,8 @@ public class EnemyMovementAI : MonoBehaviour
     }
 
     public void SetCanMoveWhileAttacking(bool value) => canMoveWhileAttacking = value;
+
+    public Transform GetPlayer() => player;
 
     void OnDrawGizmosSelected()
     {

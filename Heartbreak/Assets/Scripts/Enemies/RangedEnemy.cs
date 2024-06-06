@@ -6,29 +6,35 @@ public class RangedEnemy : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPoint;
+    [SerializeField] LayerMask playerLayer;
     [SerializeField] float shootDelay = 1f;
     [SerializeField] float projectileForce = 1f;
+    [SerializeField] float attackRange = 1f;
     [SerializeField] bool canMoveWhileAttacking;
     EnemyMovementAI enemyMovementAI;
+    Transform player;
+    bool playerInAttackRange;
+    bool attacking;
 
     private void Start()
     {
         enemyMovementAI = GetComponent<EnemyMovementAI>();
         enemyMovementAI.SetCanMoveWhileAttacking(canMoveWhileAttacking);
+        player = enemyMovementAI.GetPlayer();
     }
 
-    void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+
+        if (playerInAttackRange && !attacking)
         {
-            StartCoroutine(ReadyShot(other.transform));
+            attacking = true;
+            Shoot(player);
         }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else if (!playerInAttackRange)
         {
+            attacking = false;
             StopAllCoroutines();
         }
     }
@@ -49,5 +55,11 @@ public class RangedEnemy : MonoBehaviour
         Shoot(target);
         
         StartCoroutine(ReadyShot(target));
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

@@ -448,8 +448,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1307076896559591701, guid: 8f992d4935e9460438b81b9554ef8475, type: 3}
   shootPoint: {fileID: 19383340}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   shootDelay: 0.75
   projectileForce: 15
+  attackRange: 3.5
   canMoveWhileAttacking: 0
 --- !u!135 &440270835
 SphereCollider:
