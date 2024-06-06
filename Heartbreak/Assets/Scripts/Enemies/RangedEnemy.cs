@@ -8,6 +8,14 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] Transform shootPoint;
     [SerializeField] float shootDelay = 1f;
     [SerializeField] float projectileForce = 1f;
+    [SerializeField] bool canMoveWhileAttacking;
+    EnemyMovementAI enemyMovementAI;
+
+    private void Start()
+    {
+        enemyMovementAI = GetComponent<EnemyMovementAI>();
+        enemyMovementAI.SetCanMoveWhileAttacking(canMoveWhileAttacking);
+    }
 
     void OnTriggerEnter(Collider other)
     {
