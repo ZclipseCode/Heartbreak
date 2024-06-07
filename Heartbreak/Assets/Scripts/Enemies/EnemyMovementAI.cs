@@ -9,35 +9,51 @@ public class EnemyMovementAI : MonoBehaviour
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float walkPointRange = 1f;
     [SerializeField] float sightRange = 1f;
+    [SerializeField] float attackRange = 1f;
+    [SerializeField] bool canMoveWhileAttacking;
     NavMeshAgent agent;
     Transform player;
+    BaseEnemyCombat enemyCombat;
     Vector3 walkPoint;
     bool walkPointSet;
     bool playerInSightRange;
-    bool canMoveWhileAttacking;
+    bool playerInAttackRange;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        enemyCombat = GetComponent<BaseEnemyCombat>();
+        enemyCombat.SetPlayer(player);
     }
 
     void Update()
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
 
         if (!playerInSightRange)
         {
             Patrol();
         }
-        else if (playerInSightRange && canMoveWhileAttacking)
+        else if ((playerInSightRange && !playerInAttackRange) || (playerInSightRange && playerInAttackRange && canMoveWhileAttacking))
         {
             agent.SetDestination(player.position);
         }
-        else if (playerInSightRange && !canMoveWhileAttacking)
+        else if (playerInSightRange && playerInAttackRange && !canMoveWhileAttacking)
         {
             walkPointSet = false;
             agent.SetDestination(transform.position);
+        }
+
+        if (playerInAttackRange)
+        {
+            enemyCombat.StartCoroutine(enemyCombat.ReadyAttack());
+        }
+        if (!playerInAttackRange)
+        {
+            enemyCombat.StopAllCoroutines();
+            enemyCombat.SetAttacking(false);
         }
     }
 
@@ -74,13 +90,11 @@ public class EnemyMovementAI : MonoBehaviour
         }
     }
 
-    public void SetCanMoveWhileAttacking(bool value) => canMoveWhileAttacking = value;
-
-    public Transform GetPlayer() => player;
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
