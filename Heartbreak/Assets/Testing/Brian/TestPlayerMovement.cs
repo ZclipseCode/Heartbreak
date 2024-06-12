@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewPlayerMovement : MonoBehaviour
+public class TestPlayerMovement : MonoBehaviour
 {
     [SerializeField] Transform orientation;
     [SerializeField] LayerMask ground;
