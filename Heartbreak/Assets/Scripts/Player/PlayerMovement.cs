@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dodgeForce = 3f;
     [SerializeField] float dodgeCooldown = 0.25f;
     [SerializeField] float airMultiplier = 8f;
+    [SerializeField] PlayerAnimation playerAnimation;
+    [SerializeField] bool facingRight;
     bool readyToDodge = true;
     float horizontalInput;
     float verticalInput;
@@ -47,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = playerControls.Player.Movement.ReadValue<Vector2>().x;
         verticalInput = playerControls.Player.Movement.ReadValue<Vector2>().y;
+
+        Flip(horizontalInput);
+
+        playerAnimation.Walk(horizontalInput, verticalInput);
 
         if (playerControls.Player.Dodge.ReadValue<float>() > 0 && readyToDodge)
         {
@@ -85,7 +91,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Dodge()
     {
-        rb.AddForce(rb.velocity * dodgeForce, ForceMode.Impulse);
+        if (rb.velocity.magnitude > 2f)
+        {
+            rb.AddForce(rb.velocity * dodgeForce, ForceMode.Impulse);
+        }
+        else
+        {
+            if (facingRight)
+            {
+                rb.AddForce(transform.right * 5f * dodgeForce, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(-transform.right * 5f * dodgeForce, ForceMode.Impulse);
+            }
+        }
+
+        playerAnimation.StartAnimation("isDodging");
     }
 
     void ResetDodge()
@@ -102,6 +124,17 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+    }
+
+    void Flip(float horizontal)
+    {
+        if ((horizontal < 0 && facingRight) || (horizontal > 0 && !facingRight))
+        {
+            facingRight = !facingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x = -currentScale.x;
+            transform.localScale = currentScale;
         }
     }
 
