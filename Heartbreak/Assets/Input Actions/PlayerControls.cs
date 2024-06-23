@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StandardAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d09a9eac-ebcb-4c12-9f7b-519e7b2d6880"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""caead7e9-f489-47e2-9377-f075454e0da6"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StandardAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -194,6 +214,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
+        m_Player_StandardAttack = m_Player.FindAction("StandardAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -257,12 +278,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Dodge;
+    private readonly InputAction m_Player_StandardAttack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
+        public InputAction @StandardAttack => m_Wrapper.m_Player_StandardAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -278,6 +301,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
+            @StandardAttack.started += instance.OnStandardAttack;
+            @StandardAttack.performed += instance.OnStandardAttack;
+            @StandardAttack.canceled += instance.OnStandardAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -288,6 +314,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
+            @StandardAttack.started -= instance.OnStandardAttack;
+            @StandardAttack.performed -= instance.OnStandardAttack;
+            @StandardAttack.canceled -= instance.OnStandardAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -318,5 +347,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnStandardAttack(InputAction.CallbackContext context);
     }
 }
