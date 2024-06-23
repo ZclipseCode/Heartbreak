@@ -9,7 +9,6 @@ public class RangedEnemy : BaseEnemyCombat
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float shootDelay = 1f;
     [SerializeField] float projectileForce = 1f;
-    EnemyMovementAI enemyMovementAI;
 
     public override void Attack()
     {
