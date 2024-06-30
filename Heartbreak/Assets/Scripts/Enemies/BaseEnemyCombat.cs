@@ -4,13 +4,29 @@ using UnityEngine;
 
 public abstract class BaseEnemyCombat : MonoBehaviour
 {
-    // Ranged and melee enemies will inherit this!
+    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected LayerMask playerLayer;
+    [SerializeField] protected float attackDelay = 1f;
     protected Transform player;
     protected bool attacking;
 
     public abstract void Attack();
 
-    public abstract IEnumerator ReadyAttack();
+    public IEnumerator ReadyAttack()
+    {
+        if (!attacking)
+        {
+            attacking = true;
+
+            yield return new WaitForSeconds(attackDelay);
+
+            Attack();
+
+            attacking = false;
+
+            StartCoroutine(ReadyAttack());
+        }
+    }
 
     public void SetPlayer(Transform value) => player = value;
 
