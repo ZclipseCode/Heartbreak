@@ -570,7 +570,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -655,7 +655,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -699,7 +699,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackDelay: 1
-  attackRange: 2
+  attackRange: 2.5
 --- !u!1 &972900257
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,10 +878,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 336374586886044368, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 2103478663480025634, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -925,10 +921,6 @@ PrefabInstance:
     - target: {fileID: 2952296429807621680, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2952296429807621680, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

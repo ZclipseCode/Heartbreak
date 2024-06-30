@@ -8,6 +8,9 @@ public class MeleeEnemy : BaseEnemyCombat
 
     public override void Attack()
     {
+        Vector3 direction = (player.position - attackPoint.position).normalized;
+        attackPoint.position = transform.position + direction;
+
         bool meleeHit = Physics.CheckSphere(attackPoint.position, attackRange, playerLayer);
         print("swing");
 
