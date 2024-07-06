@@ -574,7 +574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &440270833
 Transform:
   m_ObjectHideFlags: 0
@@ -610,6 +610,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackDelay: 1
+  damage: 1
   projectile: {fileID: 1307076896559591701, guid: 8f992d4935e9460438b81b9554ef8475, type: 3}
   projectileForce: 15
 --- !u!195 &440270836
@@ -674,7 +675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &689587426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,7 +755,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackDelay: 1
-  attackRange: 2.5
+  damage: 1
+  attackRange: 3.25
 --- !u!1 &871445508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,29 +1184,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2952296429807621680, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1162592923}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
---- !u!1 &1162592922 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2952296429807621680, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-  m_PrefabInstance: {fileID: 1162592921}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1162592923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162592922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2efbab41f3bac3643991480fae50afaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 2
 --- !u!1 &1212674796
 GameObject:
   m_ObjectHideFlags: 0
