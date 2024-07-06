@@ -22,7 +22,8 @@ public class MeleeEnemy : BaseEnemyCombat
             {
                 if (collision.CompareTag("Player"))
                 {
-                    print("Player hit!");
+                    PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+                    playerHealth.LoseHealth(damage);
 
                     break;
                 }

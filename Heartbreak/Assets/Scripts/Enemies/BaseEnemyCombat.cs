@@ -7,6 +7,7 @@ public abstract class BaseEnemyCombat : MonoBehaviour
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected float attackDelay = 1f;
+    [SerializeField] protected int damage = 1;
     protected Transform player;
     protected bool attacking;
 
