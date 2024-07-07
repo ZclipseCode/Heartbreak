@@ -11,6 +11,8 @@ public class EnemyMovementAI : MonoBehaviour
     [SerializeField] float sightRange = 1f;
     [SerializeField] float attackRange = 1f;
     [SerializeField] bool canMoveWhileAttacking;
+    [SerializeField] bool facingRight;
+    [SerializeField] PlayerAnimation enemyAnimation; // should probably just be Animation.cs or something similiar
     NavMeshAgent agent;
     Transform player;
     BaseEnemyCombat enemyCombat;
@@ -29,6 +31,8 @@ public class EnemyMovementAI : MonoBehaviour
 
     void Update()
     {
+        enemyAnimation.Walk(agent.desiredVelocity.x, agent.desiredVelocity.y);
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
 
@@ -55,6 +59,8 @@ public class EnemyMovementAI : MonoBehaviour
             enemyCombat.StopAllCoroutines();
             enemyCombat.SetAttacking(false);
         }
+
+        Flip(agent.velocity.normalized.x);
     }
 
     void Patrol()
@@ -87,6 +93,17 @@ public class EnemyMovementAI : MonoBehaviour
         if (Physics.Raycast(walkPoint, -transform.up, 2f, groundLayer))
         {
             walkPointSet = true;
+        }
+    }
+
+    void Flip(float horizontal)
+    {
+        if (((horizontal < 0 && facingRight) || (horizontal > 0 && !facingRight)))
+        {
+            facingRight = !facingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x = -currentScale.x;
+            transform.localScale = currentScale;
         }
     }
 
