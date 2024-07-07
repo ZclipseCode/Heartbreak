@@ -10,6 +10,7 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float meleeRange = 1f;
     [SerializeField] float meleeCooldown = 1f;
+    [SerializeField] PlayerAnimation playerAnimation;
     bool readyToMelee = true;
     PlayerControls playerControls;
 
@@ -55,6 +56,8 @@ public class PlayerMelee : MonoBehaviour
                 }
             }
         }
+
+        playerAnimation.StartAnimation("isAttacking");
     }
 
     void ResetMelee()
