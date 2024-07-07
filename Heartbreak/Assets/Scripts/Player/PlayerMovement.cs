@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float airMultiplier = 8f;
     [SerializeField] PlayerAnimation playerAnimation;
     [SerializeField] bool facingRight;
+    [SerializeField] PlayerMelee playerAttack; // there should be a PlayerAttack.cs
     bool readyToDodge = true;
     float horizontalInput;
     float verticalInput;
@@ -54,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerAnimation.Walk(horizontalInput, verticalInput);
 
-        if (playerControls.Player.Dodge.ReadValue<float>() > 0 && readyToDodge)
+        if (playerControls.Player.Dodge.ReadValue<float>() > 0 && readyToDodge && playerAttack.GetReadyToMelee())
         {
             readyToDodge = false;
 
@@ -66,15 +67,18 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        if (playerAttack.GetReadyToMelee())
+        {
+            moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if (grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
-        }
-        else
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
+            if (grounded)
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
+            }
+            else
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
+            }
         }
     }
 
@@ -129,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip(float horizontal)
     {
-        if ((horizontal < 0 && facingRight) || (horizontal > 0 && !facingRight))
+        if (((horizontal < 0 && facingRight) || (horizontal > 0 && !facingRight)) && playerAttack.GetReadyToMelee())
         {
             facingRight = !facingRight;
             Vector3 currentScale = transform.localScale;
@@ -137,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = currentScale;
         }
     }
+
+    public bool GetReadyToDodge() => readyToDodge;
 
     private void OnDestroy()
     {

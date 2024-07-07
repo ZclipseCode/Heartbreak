@@ -241,6 +241,7 @@ MonoBehaviour:
   airMultiplier: 8
   playerAnimation: {fileID: 3791843512301103930}
   facingRight: 1
+  playerAttack: {fileID: 956802677842804480}
 --- !u!114 &956802677842804480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +259,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   meleeRange: 0.75
-  meleeCooldown: 1
+  meleeCooldown: 0.75
+  playerAnimation: {fileID: 3791843512301103930}
+  playerMovement: {fileID: 7569281239305487391}
 --- !u!1 &5854644825009689717
 GameObject:
   m_ObjectHideFlags: 0

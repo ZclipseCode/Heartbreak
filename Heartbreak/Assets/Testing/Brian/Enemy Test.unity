@@ -1137,10 +1137,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 956802677842804480, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-      propertyPath: playerAnimation
-      value: 
-      objectReference: {fileID: 1457912856}
     - target: {fileID: 2103478663480025634, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1347,17 +1343,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1457912856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3791843512301103930, guid: 740cad673b7b65d4b83416fc34b0a07f, type: 3}
-  m_PrefabInstance: {fileID: 1162592921}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba10c39973a4d6439312cab6c895945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1621744896
 GameObject:
   m_ObjectHideFlags: 0
