@@ -8,8 +8,10 @@ public abstract class BaseEnemyCombat : MonoBehaviour
     [SerializeField] protected LayerMask playerLayer;
     [SerializeField] protected float attackDelay = 1f;
     [SerializeField] protected int damage = 1;
+    [SerializeField] protected PlayerAnimation enemyAnimation;
     protected Transform player;
     protected bool attacking;
+    protected bool isMelee;
 
     public abstract void Attack();
 
@@ -19,7 +21,23 @@ public abstract class BaseEnemyCombat : MonoBehaviour
         {
             attacking = true;
 
+            if (!isMelee)
+            {
+                print("attack i say " + gameObject.name);
+                enemyAnimation.StartAnimation("isAttacking");
+            }
+
             yield return new WaitForSeconds(attackDelay);
+
+            if (!isMelee)
+            {
+                enemyAnimation.End("isAttacking");
+                enemyAnimation.GetAnimator().Play("Idle");
+            }
+            else
+            {
+                enemyAnimation.StartAnimation("isAttacking");
+            }
 
             Attack();
 
