@@ -10,6 +10,8 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float meleeRange = 1f;
     [SerializeField] float meleeCooldown = 1f;
+    [SerializeField] PlayerAnimation playerAnimation;
+    [SerializeField] PlayerMovement playerMovement;
     bool readyToMelee = true;
     PlayerControls playerControls;
 
@@ -26,7 +28,7 @@ public class PlayerMelee : MonoBehaviour
 
     void PlayerInput()
     {
-        if (playerControls.Player.StandardAttack.ReadValue<float>() > 0 && readyToMelee)
+        if (playerControls.Player.StandardAttack.ReadValue<float>() > 0 && readyToMelee && playerMovement.GetReadyToDodge())
         {
             readyToMelee = false;
 
@@ -55,6 +57,8 @@ public class PlayerMelee : MonoBehaviour
                 }
             }
         }
+
+        playerAnimation.StartAnimation("isAttacking");
     }
 
     void ResetMelee()
@@ -67,6 +71,8 @@ public class PlayerMelee : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(meleePoint.position, meleeRange);
     }
+
+    public bool GetReadyToMelee() => readyToMelee;
 
     private void OnDestroy()
     {
