@@ -37,4 +37,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         GoToIdle(state);
     }
+
+    public Animator GetAnimator() => animator;
 }

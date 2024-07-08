@@ -6,13 +6,17 @@ public class MeleeEnemy : BaseEnemyCombat
 {
     [SerializeField] float attackRange = 2f;
 
+    private void Start()
+    {
+        isMelee = true;
+    }
+
     public override void Attack()
     {
         Vector3 direction = (player.position - attackPoint.position).normalized;
         attackPoint.position = transform.position + direction;
 
         bool meleeHit = Physics.CheckSphere(attackPoint.position, attackRange, playerLayer);
-        print("swing");
 
         if (meleeHit)
         {
@@ -22,7 +26,8 @@ public class MeleeEnemy : BaseEnemyCombat
             {
                 if (collision.CompareTag("Player"))
                 {
-                    print("Player hit!");
+                    PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+                    playerHealth.LoseHealth(damage);
 
                     break;
                 }

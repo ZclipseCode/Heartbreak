@@ -10,6 +10,8 @@ public class RangedEnemy : BaseEnemyCombat
     public override void Attack()
     {
         GameObject p = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+        p.GetComponent<EnemyProjectile>().SetDamage(damage);
+
         Rigidbody pRb = p.GetComponent<Rigidbody>();
         Vector3 direction = (player.position - pRb.position).normalized;
 
