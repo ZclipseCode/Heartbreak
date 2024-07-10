@@ -78,4 +78,14 @@ public class PlayerMelee : MonoBehaviour
     {
         playerControls.Player.Disable();
     }
+
+    public void SetMeleeRange(float range)
+    {
+        meleeRange = range;
+    }
+
+    public float GetMeleeRange()
+    {
+        return meleeRange;
+    }
 }
