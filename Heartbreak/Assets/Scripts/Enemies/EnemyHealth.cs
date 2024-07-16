@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
-    public delegate void HealthChangeDelegate(int value);
-    public static HealthChangeDelegate healthChange;
-
-    [SerializeField] int maxHealth = 4;
-    int currentHealth;
+    [SerializeField] float maxHealth = 100f;
+    float currentHealth;
 
     private void Start()
     {
         currentHealth = maxHealth;
-
-        healthChange(currentHealth);
     }
 
-    public void GainHealth(int value)
+    public void GainHealth(float value)
     {
         if (currentHealth + value > maxHealth)
         {
@@ -27,22 +22,18 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth += value;
         }
-
-        healthChange(currentHealth);
     }
 
-    public void LoseHealth(int value)
+    public void LoseHealth(float value)
     {
         if (currentHealth - value <= 0)
         {
             currentHealth = 0;
-            print("Game Over");
+            Destroy(transform.parent.gameObject);
         }
         else
         {
             currentHealth -= value;
         }
-
-        healthChange(currentHealth);
     }
 }

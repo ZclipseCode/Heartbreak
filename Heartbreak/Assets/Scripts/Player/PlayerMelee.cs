@@ -10,6 +10,7 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float meleeRange = 1f;
     [SerializeField] float meleeCooldown = 1f;
+    [SerializeField] float damage = 10f;
     [SerializeField] PlayerAnimation playerAnimation;
     [SerializeField] PlayerMovement playerMovement;
     bool readyToMelee = true;
@@ -41,7 +42,6 @@ public class PlayerMelee : MonoBehaviour
     void Melee()
     {
         bool meleeHit = Physics.CheckSphere(meleePoint.position, meleeRange, enemyLayer);
-        print("swing");
 
         if (meleeHit)
         {
@@ -51,7 +51,8 @@ public class PlayerMelee : MonoBehaviour
             {
                 if (collision.CompareTag("Enemy"))
                 {
-                    print("Enemy hit!");
+                    EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+                    enemyHealth.LoseHealth(damage);
 
                     break;
                 }

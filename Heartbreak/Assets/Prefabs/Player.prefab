@@ -260,6 +260,7 @@ MonoBehaviour:
     m_Bits: 128
   meleeRange: 0.75
   meleeCooldown: 0.75
+  damage: 50
   playerAnimation: {fileID: 3791843512301103930}
   playerMovement: {fileID: 7569281239305487391}
 --- !u!1 &5854644825009689717
