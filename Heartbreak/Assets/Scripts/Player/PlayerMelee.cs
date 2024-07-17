@@ -13,6 +13,7 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] float damage = 10f;
     [SerializeField] PlayerAnimation playerAnimation;
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] UpgradeController upgradeController;
     bool readyToMelee = true;
     PlayerControls playerControls;
 
@@ -51,10 +52,10 @@ public class PlayerMelee : MonoBehaviour
             {
                 if (collision.CompareTag("Enemy"))
                 {
+                    upgradeController.PerformAttackUpgrades(collision.transform.parent.gameObject);
+
                     EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
                     enemyHealth.LoseHealth(damage);
-
-                    break;
                 }
             }
         }
