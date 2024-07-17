@@ -23,7 +23,6 @@ public abstract class BaseEnemyCombat : MonoBehaviour
 
             if (!isMelee)
             {
-                print("attack i say " + gameObject.name);
                 enemyAnimation.StartAnimation("isAttacking");
             }
 
