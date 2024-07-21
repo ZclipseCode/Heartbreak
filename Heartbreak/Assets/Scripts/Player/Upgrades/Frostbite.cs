@@ -8,6 +8,7 @@ public class Frostbite : Upgrade
 
     private void Start()
     {
+        upgradeType = UpgradeType.attack;
         freezeDebuff = gameObject.AddComponent<FreezeDebuff>();
     }
 
