@@ -20,6 +20,7 @@ public class EnemyMovementAI : MonoBehaviour
     bool walkPointSet;
     bool playerInSightRange;
     bool playerInAttackRange;
+    bool isFrozen;
 
     private void Start()
     {
@@ -106,6 +107,9 @@ public class EnemyMovementAI : MonoBehaviour
             transform.localScale = currentScale;
         }
     }
+
+    public bool GetIsFrozen() => isFrozen;
+    public void SetIsFrozen(bool value) => isFrozen = value;
 
     void OnDrawGizmosSelected()
     {

@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerAnimation playerAnimation;
     [SerializeField] bool facingRight;
     [SerializeField] PlayerMelee playerAttack; // there should be a PlayerAttack.cs
+    [SerializeField] UpgradeController upgradeController;
     bool readyToDodge = true;
     float horizontalInput;
     float verticalInput;
@@ -95,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Dodge()
     {
+        upgradeController.PerformDodgeUpgrades();
+
         if (rb.velocity.magnitude > 2f)
         {
             rb.AddForce(rb.velocity * dodgeForce, ForceMode.Impulse);

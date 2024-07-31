@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class UpgradeController : MonoBehaviour
 {
+    [SerializeField] GameObject northernLightsTrailPrefab;
+
     List<Upgrade> attackUpgrades = new List<Upgrade>();
     List<Upgrade> timedUpgrades = new List<Upgrade>();
     List<Upgrade> instantUpgrades = new List<Upgrade>();
+    List<Upgrade> dodgeUpgrades = new List<Upgrade>();
 
     public void AddUpgrade(Upgrade upgrade)
     {
         if (upgrade.GetUpgradeType() == UpgradeType.attack)
         {
             attackUpgrades.Add(upgrade);
+        }
+        else if (upgrade.GetUpgradeType() == UpgradeType.timed)
+        {
+            timedUpgrades.Add(upgrade);
+        }
+        else if (upgrade.GetUpgradeType() == UpgradeType.instant)
+        {
+            instantUpgrades.Add(upgrade);
+        }
+        else if (upgrade.GetUpgradeType() == UpgradeType.dodge)
+        {
+            dodgeUpgrades.Add(upgrade);
         }
     }
 
@@ -40,15 +55,25 @@ public class UpgradeController : MonoBehaviour
         }
     }
 
+    public void PerformDodgeUpgrades()
+    {
+        foreach(Upgrade upgrade in dodgeUpgrades)
+        {
+            upgrade.PerformEffects();
+        }
+    }
+
+    public GameObject GetNorthernLightsTrailPrefab() => northernLightsTrailPrefab;
+
     // testing
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Frostbite frostbite = gameObject.AddComponent<Frostbite>();
-            AddUpgrade(frostbite);
+            NorthernLights northernLights = gameObject.AddComponent<NorthernLights>();
+            AddUpgrade(northernLights);
 
-            print("Gained Frostbite!");
+            print("Gained Upgrade!");
         }
     }
 }

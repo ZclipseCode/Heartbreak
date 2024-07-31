@@ -6,10 +6,16 @@ public class Frostbite : Upgrade
 {
     FreezeDebuff freezeDebuff;
 
-    private void Start()
+    private void Awake()
     {
         upgradeType = UpgradeType.attack;
-        freezeDebuff = gameObject.AddComponent<FreezeDebuff>();
+
+        freezeDebuff = gameObject.GetComponent<FreezeDebuff>();
+
+        if (freezeDebuff == null)
+        {
+            freezeDebuff = gameObject.AddComponent<FreezeDebuff>();
+        }
     }
 
     public override void PerformEffects(GameObject target)

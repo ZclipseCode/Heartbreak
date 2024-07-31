@@ -6,5 +6,6 @@ public enum UpgradeType
 {
     attack,
     timed,
-    instant
+    instant,
+    dodge
 }
