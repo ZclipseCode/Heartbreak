@@ -9,27 +9,39 @@ public class FreezeDebuff : MonoBehaviour
 
     public IEnumerator Freeze(GameObject target)
     {
-        BaseEnemyCombat baseEnemyCombat = target.GetComponent<BaseEnemyCombat>();
-        baseEnemyCombat.StopAllCoroutines();
-
-        SpriteRenderer spriteRenderer = target.GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.color = new Color(0f, 100f, 255f);
-
         EnemyMovementAI enemyMovementAI = target.GetComponent<EnemyMovementAI>();
-        enemyMovementAI.enabled = false;
 
-        Animator animator = target.GetComponentInChildren<Animator>();
-        float animatorSpeed = animator.speed;
-        animator.speed = 0f;
-
-        yield return new WaitForSeconds(freezeDuration);
-
-        if (target != null)
+        if (!enemyMovementAI.GetIsFrozen())
         {
-            baseEnemyCombat.SetAttacking(false);
-            spriteRenderer.color = Color.white;
-            enemyMovementAI.enabled = true;
-            animator.speed = animatorSpeed;
+            enemyMovementAI.SetIsFrozen(true);
+
+            enemyMovementAI.enabled = false;
+
+            BaseEnemyCombat baseEnemyCombat = target.GetComponent<BaseEnemyCombat>();
+            baseEnemyCombat.StopAllCoroutines();
+
+            SpriteRenderer spriteRenderer = target.GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.color = new Color(0f, 100f, 255f);
+
+            Animator animator = target.GetComponentInChildren<Animator>();
+            float animatorSpeed = animator.speed;
+            animator.speed = 0f;
+
+            NavMeshAgent navMeshAgent = target.GetComponent<NavMeshAgent>();
+            navMeshAgent.enabled = false;
+
+            yield return new WaitForSeconds(freezeDuration);
+
+            if (target != null)
+            {
+                enemyMovementAI.enabled = true;
+                baseEnemyCombat.SetAttacking(false);
+                spriteRenderer.color = Color.white;
+                animator.speed = animatorSpeed;
+                navMeshAgent.enabled = true;
+
+                enemyMovementAI.SetIsFrozen(false);
+            }
         }
     }
 }

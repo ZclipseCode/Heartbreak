@@ -243,6 +243,7 @@ MonoBehaviour:
   playerAnimation: {fileID: 3791843512301103930}
   facingRight: 1
   playerAttack: {fileID: 956802677842804480}
+  upgradeController: {fileID: 3794103466415806647}
 --- !u!114 &956802677842804480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632ee1dde5b3ac34983efda6e97ffc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  northernLightsTrailPrefab: {fileID: 2433441622332290577, guid: 7b42f65e5f1d0344cb007f4f825515fa, type: 3}
 --- !u!1 &5854644825009689717
 GameObject:
   m_ObjectHideFlags: 0
